@@ -37,6 +37,11 @@ model.fit(X,y, batch_size = 32, epochs = 50)
 
 import wikipedia
 from googlesearch import search 
+import webbrowser
+from googletrans import Translator
+translator = Translator()
+from PyDictionary import PyDictionary
+dictionary=PyDictionary()
 import win32com.client as wincl
 speak = wincl.Dispatch("SAPI.SpVoice")
 
@@ -66,7 +71,7 @@ while True:
         speak.Speak('Please check your default browser,if you are not satisfied with result try some different keyword')    
         print('Bot: Please check your default browser,if you are not satisfied with result try some different keyword')    
         for i in range(0,2):
-                import webbrowser
+                
                 webbrowser.open(result[i])
 #wikipedia block    
     elif ('wiki' in ip) or ('Wiki' in ip) or ('Wikipedia' in ip) or ('wikipedia' in ip):
@@ -83,35 +88,54 @@ while True:
         speak.Speak(wikipedia.summary(wiki,sentences=2))
 #translator
     elif ('translate' in ip) or ('Translate' in ip):
-        
-        from googletrans import Translator
-        translator = Translator()
+               
         speak.Speak('Please enter text to translate:')
         tran = input('Bot: Please enter text to translate: ' )
         speak.Speak('please enter destination language:')
         lang = input('Bot: please enter destination language: ')
-        
-        
+               
         trans = translator.translate(tran,dest=lang)
         print('Bot: '+trans.text)
         speak.Speak(trans.text)
 #dictionary
     elif ('dict' in ip) or ('Dict' in ip) or ('dictionary' in ip) or ('Dictionary' in ip):
         
-        from PyDictionary import PyDictionary
-        dictionary=PyDictionary()
+        
         speak.Speak('Please enter the word:')
         find = input('Bot: Please enter the word: ')
         print ('Bot: ',dictionary.meaning(find))
         speak.Speak(dictionary.meaning(find))  
-    
-    
+        
     else:
         ip_1=np.append(ip,1)
         x1 = cv.transform(ip_1).toarray()
         pred = model.predict_classes(x1)
         pred = pred[0]-1
         op = str(dataset1.iloc[pred,1])
+        if (op == '00001'):
+             speak.Speak('Please enter the word:')
+             find = input('Bot: Please enter the word: ')
+             print ('Bot: ',dictionary.meaning(find))
+             speak.Speak(dictionary.meaning(find)) 
+        elif (op == '00002'):
+             speak.Speak('Please enter search word:')
+             wiki = input('Bot: Please enter search word:')
+             if wiki == 'quit' or ip == 'Quit':
+               print('Bot: Bye')
+               speak.Speak('Bye')
+               break; 
+             print('Bot:'+ wikipedia.summary(wiki,sentences=10))
+             speak.Speak(wikipedia.summary(wiki,sentences=2))
+        elif (op == '00003'):
+             speak.Speak('Training session started')
+             speak.Speak('Please enter the password to start training') 
+             password = input('Enter the password: ')
+             if (password == 'erfinder'):
+               perform_training()
+             else:
+               speak.Speak('Incorrect password')
+               break;
+      
         print('Bot: '+op)
         speak.Speak(op)
         
