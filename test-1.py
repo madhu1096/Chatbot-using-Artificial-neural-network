@@ -7,10 +7,44 @@ dataset1 = pd.read_csv('data-answer.csv',header=None,sep='\t')
 x = dataset.iloc[:,1].values
 y = dataset.iloc[:,0].values
 #countvectorizer
+import re
+import nltk
+from nltk.stem.porter import PorterStemmer
+
+corpus = []
+for i in range(1, 203):
+    review = dataset[1][i]
+    review = review.lower()
+    review = review.split()
+    ps = PorterStemmer()
+    review = [ps.stem(word) for word in review]
+    review = ' '.join(review)
+    corpus.append(review)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 from sklearn.feature_extraction.text import CountVectorizer
 cv = CountVectorizer()
 X = cv.fit_transform(x).toarray()
-
 a=len(X[1])
 b=len(y)
 b=b+1

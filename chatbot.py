@@ -29,17 +29,22 @@ from keras.layers import Dense
 
 model = Sequential()
 model.add(Dense(units = 800, activation = 'relu', input_dim = a))
-model.add(Dense(units = 5000, activation = 'relu'))
+model.add(Dense(units = 1000, activation = 'relu'))
 model.add(Dense(units = b, activation = 'softmax'))
 model.compile(optimizer = 'adam', loss = 'sparse_categorical_crossentropy', metrics = ['accuracy'])
 
 model.fit(X,y, batch_size = 32, epochs = 50)
 
-print('\n')
-print('Bot: Welcome Madhu..,i am here to help you')
-print('Bot: Type "Quit" to stop ')
 import wikipedia
 from googlesearch import search 
+import win32com.client as wincl
+speak = wincl.Dispatch("SAPI.SpVoice")
+
+print('\n')
+print('Bot: Welcome Madhu Manivannan..,i am here to help you')
+speak.Speak('Welcome Madhu Manivannan..,i am here to help you')
+print('Bot: Type "Quit" to stop ')
+speak.Speak('Type "Quit" to stop ')
      
 while True:
 #welcome block    
@@ -48,13 +53,17 @@ while True:
     if ('google' in ip) or ('Google' in ip): 
         
         print ('Bot: You are Now inside Google session:')
+        speak.Speak('You are Now inside Google session:')
+        speak.Speak('Please enter search word:')
         google = input('Bot: Please enter search word:')
         if google == 'quit' or ip == 'Quit':
             print('Bot: Bye')
+            speak.Speak('Bye')
             break; 
         result=[]
         for i in search(google, tld="com", stop=2): 
             result.append(i)
+        speak.Speak('Please check your default browser,if you are not satisfied with result try some different keyword')    
         print('Bot: Please check your default browser,if you are not satisfied with result try some different keyword')    
         for i in range(0,2):
                 import webbrowser
@@ -63,30 +72,38 @@ while True:
     elif ('wiki' in ip) or ('Wiki' in ip) or ('Wikipedia' in ip) or ('wikipedia' in ip):
         
         print ('Bot: You are Now inside Wiki session:')
+        speak.Speak('You are Now inside Wiki session:')
+        speak.Speak('Please enter search word:')
         wiki = input('Bot: Please enter search word:')
         if wiki == 'quit' or ip == 'Quit':
             print('Bot: Bye')
+            speak.Speak('Bye')
             break; 
         print('Bot:'+ wikipedia.summary(wiki,sentences=10))
+        speak.Speak(wikipedia.summary(wiki,sentences=2))
 #translator
     elif ('translate' in ip) or ('Translate' in ip):
         
         from googletrans import Translator
         translator = Translator()
-        
+        speak.Speak('Please enter text to translate:')
         tran = input('Bot: Please enter text to translate: ' )
+        speak.Speak('please enter destination language:')
         lang = input('Bot: please enter destination language: ')
+        
         
         trans = translator.translate(tran,dest=lang)
         print('Bot: '+trans.text)
+        speak.Speak(trans.text)
 #dictionary
     elif ('dict' in ip) or ('Dict' in ip) or ('dictionary' in ip) or ('Dictionary' in ip):
         
         from PyDictionary import PyDictionary
         dictionary=PyDictionary()
-        
+        speak.Speak('Please enter the word:')
         find = input('Bot: Please enter the word: ')
         print ('Bot: ',dictionary.meaning(find))
+        speak.Speak(dictionary.meaning(find))  
     
     
     else:
@@ -96,13 +113,14 @@ while True:
         pred = pred[0]-1
         op = str(dataset1.iloc[pred,1])
         print('Bot: '+op)
+        speak.Speak(op)
         
     
     if ip == 'quit' or ip == 'Quit':
         print('Bot: Bye')
+        speak.Speak('Bye')
         break;   
-    
-    
+      
 #end -------------------------------------------------------------------
 get = input('Enter:')
 
