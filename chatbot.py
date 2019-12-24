@@ -50,7 +50,7 @@ print('Bot: Welcome Madhu Manivannan..,i am here to help you')
 speak.Speak('Welcome Madhu Manivannan..,i am here to help you')
 print('Bot: Type "Quit" to stop ')
 speak.Speak('Type "Quit" to stop ')
-     
+prev_pred = 0     
 while True:
 #welcome block    
     ip = input('Madhu:')
@@ -70,8 +70,7 @@ while True:
             result.append(i)
         speak.Speak('Please check your default browser,if you are not satisfied with result try some different keyword')    
         print('Bot: Please check your default browser,if you are not satisfied with result try some different keyword')    
-        for i in range(0,2):
-                
+        for i in range(0,2):                
                 webbrowser.open(result[i])
 #wikipedia block    
     elif ('wiki' in ip) or ('Wiki' in ip) or ('Wikipedia' in ip) or ('wikipedia' in ip):
@@ -111,6 +110,20 @@ while True:
         x1 = cv.transform(ip_1).toarray()
         pred = model.predict_classes(x1)
         pred = pred[0]-1
+#Ask user want to train or not     
+        if (pred == prev_pred):
+            speak.Speak('if you want to train previous question type Tain below')
+            ask = input('Bot: ')
+            if (ask == 'train') or (ask =='Train'):
+                 speak.Speak('Training session started')
+                 speak.Speak('Please enter the password to start training') 
+                 password = input('Enter the password: ')
+                 if (password == 'erfinder'):
+                   perform_training()
+                 else:
+                   speak.Speak('Incorrect password')
+                   break;               
+        pred = prev_pred          
         op = str(dataset1.iloc[pred,1])
         if (op == '00001'):
              speak.Speak('Please enter the word:')
@@ -167,6 +180,7 @@ def perform_training():
      file.write(str(question_train))      
      file.close()
 #Input answer
+     speak.Speak('Enter the answer')
      answer_train = input('Bot: ')
      file = open('data-answer.csv','a') 
      file.write("\n")
