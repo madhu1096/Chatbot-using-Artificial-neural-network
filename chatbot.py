@@ -44,7 +44,43 @@ from PyDictionary import PyDictionary
 dictionary=PyDictionary()
 import win32com.client as wincl
 speak = wincl.Dispatch("SAPI.SpVoice")
-
+#Write function 
+def perform_training():
+ while True:    
+     questions_num = dataset.iloc[-1,0].values
+     answers_num = dataset1.iloc[-1,0].values
+     speak.Speak('Enter the question')
+     questions_cnt = questions_num + 1
+     answers_cnt   = answers_num + 1
+#Input question
+     question_train = input('Bot: ')
+     if (question_train == 'quit') or (question_train == 'Quit'):
+        speak.Speak('Training Stopped')
+        print('Bot: Training Stopped')         
+        break; 
+#Writing question part
+     file = open('data-question.csv','a') 
+     file.write("\n")
+     file.write(str(questions_cnt)) 
+     file.write("\t")
+     file.write(str(question_train))      
+     file.close()
+#Input answer
+     speak.Speak('Enter the answer')
+     answer_train = input('Bot: ')
+     file = open('data-answer.csv','a') 
+     file.write("\n")
+     file.write(str(answers_cnt))
+     file.write("\t")
+     if (answer_train == 'quit') or (answer_train == 'Quit'):
+        print('Bot: Training Stopped...For the above question blank wil be the answer, you have to over-ride answer by editing file')   
+        speak.Speak('Training Stopped...For the above question blank wil be the answer, you have to over-ride answer by editing file')
+        break; 
+#Writing answer part      
+     file.write(str(answer_train))      
+     file.close()
+        
+#Bot session starts from here
 print('\n')
 print('Bot: Welcome Madhu Manivannan..,i am here to help you')
 speak.Speak('Welcome Madhu Manivannan..,i am here to help you')
@@ -159,43 +195,6 @@ while True:
         break;   
       
 #end -------------------------------------------------------------------
-def perform_training():
- while True:    
-     questions_num = dataset.iloc[-1,0].values
-     answers_num = dataset1.iloc[-1,0].values
-     speak.Speak('Enter the question')
-     questions_cnt = questions_num + 1
-     answers_cnt   = answers_num + 1
-#Input question
-     question_train = input('Bot: ')
-     if (question_train == 'quit') or (question_train == 'Quit'):
-        speak.Speak('Training Stopped')
-        print('Bot: Training Stopped')         
-        break; 
-#Writing question part
-     file = open('data-question.csv','a') 
-     file.write("\n")
-     file.write(str(questions_cnt)) 
-     file.write("\t")
-     file.write(str(question_train))      
-     file.close()
-#Input answer
-     speak.Speak('Enter the answer')
-     answer_train = input('Bot: ')
-     file = open('data-answer.csv','a') 
-     file.write("\n")
-     file.write(str(answers_cnt))
-     file.write("\t")
-     if (answer_train == 'quit') or (answer_train == 'Quit'):
-        print('Bot: Training Stopped...For the above question blank wil be the answer, you have to over-ride answer by editing file')   
-        speak.Speak('Training Stopped...For the above question blank wil be the answer, you have to over-ride answer by editing file')
-        break; 
-#Writing answer part      
-     file.write(str(answer_train))      
-     file.close()
-     
-
-
 
 ##########################################################################
 get = input('Enter:')
