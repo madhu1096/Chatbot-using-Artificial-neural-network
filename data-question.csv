@@ -219,16 +219,19 @@
 202	neuron?
 203	have you read many books?
 204	who told you ?
-205 do you have any idea of insurance claiming ?
-206 can you tell a meaning of this word ?
-206 Meaning ?
-206 what is the meaning ?
-207 Explain 
-207 Define
-207 what is 
-208 start training
-208 Train
-209 end training
-209 stop training
-209 stop train
-
+205	do you have any idea of insurance claiming ?
+206	can you tell a meaning of this word ?
+206	Meaning ?
+206	what is the meaning ?
+207	Explain 
+207	Define
+207	what is 
+208	start training
+208	Train
+209	end training
+209	stop training
+209	stop train
+210	a
+211	c
+212	where are you living
+213	can we see you

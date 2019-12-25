@@ -1,3 +1,44 @@
+ 
+def ask_google(query):
+
+    # Search for query
+    query = query.replace(' ', '+')
+
+    driver.get('http://www.google.com/search?q=' + query)
+
+    # Get text from Google answer box
+
+    answer = driver.execute_script(
+            "return document.elementFromPoint(arguments[0], arguments[1]);",
+            350, 230).text
+    print(answer)
+
+     
+
+
+pip install webdriver-manager
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+driver = webdriver.Chrome(ChromeDriverManager().install())
+
+ask_google("what is the weather in chennai")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+######################################################
 import wikipedia
 from googlesearch import search 
 
@@ -69,12 +110,6 @@ while True:
         print('Bot: Bye')
         break;   
     
-      
-        
-    
-
-
-
 ip = input('Enter:')
 
 if ('google' in ip) or ('Google' in ip): 
