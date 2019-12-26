@@ -13,9 +13,5 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 driver = webdriver.Chrome(ChromeDriverManager().install())
 pip install speech
-install keras also
-
-
-
-
+install keras also..
 
