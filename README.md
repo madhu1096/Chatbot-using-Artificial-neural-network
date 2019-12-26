@@ -3,7 +3,7 @@ ChatBot--> Project
 
 Installations required:
 
-pip install beautifulsoup4
+pip install beautifulsoup4 /n
 pip install google
 pip install wikipedia
 pip install googletrans
