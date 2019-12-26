@@ -15,5 +15,8 @@ driver = webdriver.Chrome(ChromeDriverManager().install())
 pip install speech                                                                                                                
 install keras also..                                                                                                                
  
-
+Specialities:                                                                                                                
+   --> Integrated with Wikipedia
+   --> Integrated with Google Translate
+   -->
 
